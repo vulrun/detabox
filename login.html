@@ -1,0 +1,80 @@
+<html lang="en">
+  <head>
+    <title>DetaBox</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/assets/favicon.ico" sizes="48x48" />
+    <link rel="icon" href="/assets/favicon.svg" sizes="any" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
+    <link rel="manifest" href="/assets/app.webmanifest" />
+    <meta name="theme-color" content="#334155" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#334155" media="(prefers-color-scheme: dark)" />
+    <script src="https://analytics.us.umami.is/script.js" data-website-id="e4d5f741-2668-484a-8350-6840f0997c13"></script>
+    <script>
+      umami.track((props) => ({ ...props, url: window.location.href }));
+    </script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/tailwindcss@2/dist/tailwind.min.css" />
+  </head>
+  <body>
+    <div class="relative w-full h-screen flex flex-col items-center justify-center overflow-y-hidden bg-gray-200">
+      <form class="w-full max-w-lg p-4 bg-white rounded shadow-lg flex flex-col">
+        <label class="mb-0 font-light text-sm opacity-50">DetaBox</label>
+        <div class="flex">
+          <input type="password" name="secret_key" placeholder="Enter Secret Key" class="font-mono block w-full h-12 px-0 border-0 text-slate-900 text-2xl outline-none placeholder-gray-500 focus:placeholder-gray-400" autofocus="true" />
+          <button type="submit" class="px-6 h-12 font-semibold text-white bg-gray-600 hover:bg-gray-500 transition-all">SAVE</button>
+        </div>
+      </form>
+    </div>
+
+    <footer class="flex items-center justify-between fixed bottom-0 left-0 right-0 z-50 h-8 inset-shadow text-gray-800 text-xs px-4">
+      <div class="flex items-center space-x-1.5">
+        <span>DetaBox</span>
+        <span>&bull;</span>
+        <span>Made with</span>
+        <svg viewBox="0 0 24 24" width="16"><path fill="#D00" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" /></svg>
+        <span>By</span>
+        <a target="_blank" href="https://go.apii.in/vulrun">@vulrun</a>
+      </div>
+      <div class="flex items-center space-x-1.5">
+        <a class="cursor-pointer" target="_blank" href="https://go.apii.in/detabox-issues">Report Bugs</a>
+        <b>&bull;</b>
+        <a class="cursor-pointer" target="_blank" href="https://go.apii.in/detabox-feedback">Suggestions / Feedback</a>
+        <b>&bull;</b>
+        <a class="cursor-pointer" target="_blank" href="https://go.apii.in/contribute">Donate</a>
+      </div>
+    </footer>
+
+    <script>
+      document.querySelector("form").addEventListener("submit", function (e) {
+        e.preventDefault();
+        setCookie("SECRET_KEY", this.secret_key.value, "30");
+        window.location.reload();
+      });
+
+      function setCookie(key, val, days) {
+        if (!key) return;
+        val = val || "";
+        days = days || 1;
+        const MS_IN_DAY = 24 * 60 * 60 * 1000;
+        const date = new Date();
+        date.setTime(date.getTime() + days * MS_IN_DAY);
+        document.cookie = "".concat(key, "=", val, "; expires=", date.toUTCString(), "; path=/;");
+      }
+
+      function getCookie(key) {
+        const keyEQ = key + "=";
+        const cookies = document.cookie.split(";");
+        for (let i = 0; i < cookies.length; i++) {
+          let cookie = cookies[i];
+          while (cookie.charAt(0) === " ") {
+            cookie = cookie.substring(1, cookie.length);
+          }
+          if (cookie.indexOf(keyEQ) === 0) {
+            return cookie.substring(keyEQ.length, cookie.length);
+          }
+        }
+        return null;
+      }
+    </script>
+  </body>
+</html>
